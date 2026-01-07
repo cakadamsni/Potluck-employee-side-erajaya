@@ -87,8 +87,8 @@ const CartView: React.FC<CartViewProps> = ({ onNavigate, selectedProducts, onRem
                                                 <span className="text-primary font-black text-lg">Rp {product.discountPrice.toLocaleString()}</span>
                                             </div>
                                             <div className="flex flex-col items-center">
-                                                <span className="text-[10px] uppercase text-slate-400 font-black">Stok</span>
-                                                <span className="font-bold text-slate-900">{product.stock} Unit</span>
+                                                <span className="text-[10px] uppercase text-slate-400 font-black">Booking Qty</span>
+                                                <span className="font-bold text-slate-900">1 Unit</span>
                                             </div>
                                             <button
                                                 onClick={() => onRemoveProduct(product)}
@@ -155,8 +155,8 @@ const CartView: React.FC<CartViewProps> = ({ onNavigate, selectedProducts, onRem
                                             onClick={() => onNavigate('success')}
                                             disabled={!isAgreed}
                                             className={`rounded-xl px-4 py-4 text-xs font-black text-white shadow-xl transition-all flex items-center justify-center gap-2 uppercase tracking-widest ${isAgreed
-                                                    ? 'bg-primary shadow-primary/30 hover:bg-blue-700 cursor-pointer'
-                                                    : 'bg-slate-300 shadow-none cursor-not-allowed'
+                                                ? 'bg-primary shadow-primary/30 hover:bg-blue-700 cursor-pointer'
+                                                : 'bg-slate-300 shadow-none cursor-not-allowed'
                                                 }`}
                                         >
                                             Daftar Raffle

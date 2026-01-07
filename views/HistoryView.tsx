@@ -12,8 +12,8 @@ interface HistoryViewProps {
 const HistoryView: React.FC<HistoryViewProps> = ({ onNavigate, onLogout }) => {
     const [filter, setFilter] = useState<'Semua' | 'Menang' | 'Belum Beruntung' | 'Proses'>('Semua');
 
-    const filteredHistory = filter === 'Semua' 
-        ? MOCK_HISTORY 
+    const filteredHistory = filter === 'Semua'
+        ? MOCK_HISTORY
         : MOCK_HISTORY.filter(h => h.status === filter);
 
     return (
@@ -31,9 +31,8 @@ const HistoryView: React.FC<HistoryViewProps> = ({ onNavigate, onLogout }) => {
                             <button
                                 key={cat}
                                 onClick={() => setFilter(cat as any)}
-                                className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${
-                                    filter === cat ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-slate-500 hover:bg-slate-50'
-                                }`}
+                                className={`px-4 py-2 rounded-xl text-sm font-bold transition-all ${filter === cat ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-slate-500 hover:bg-slate-50'
+                                    }`}
                             >
                                 {cat}
                             </button>
@@ -57,31 +56,32 @@ const HistoryView: React.FC<HistoryViewProps> = ({ onNavigate, onLogout }) => {
                                                     <span className="material-symbols-outlined text-[18px]">calendar_today</span>
                                                     Undian: {h.drawDate}
                                                 </span>
-                                                <span className="flex items-center gap-1">
-                                                    <span className="material-symbols-outlined text-[18px]">token</span>
-                                                    {h.pointsUsed} Points Used
-                                                </span>
+
                                             </div>
                                         </div>
                                     </div>
                                     <div className="flex items-center justify-between md:justify-end gap-6 border-t md:border-t-0 pt-4 md:pt-0">
                                         <div className="text-right">
                                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Status</p>
-                                            <span className={`inline-flex px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider ${
-                                                h.status === 'Menang' ? 'bg-green-100 text-green-700' : 'bg-red-50 text-red-600'
-                                            }`}>
+                                            <span className={`inline-flex px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider ${h.status === 'Menang' ? 'bg-green-100 text-green-700' : 'bg-red-50 text-red-600'
+                                                }`}>
                                                 {h.status}
                                             </span>
                                         </div>
-                                        <button 
-                                            onClick={() => h.status === 'Menang' && onNavigate('winner')}
-                                            className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${
-                                                h.status === 'Menang' 
-                                                ? 'bg-primary text-white shadow-lg shadow-primary/20 hover:bg-blue-700' 
-                                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                                            }`}
+                                        <button
+                                            onClick={() => {
+                                                if (h.status === 'Menang') onNavigate('winner');
+                                                else if (h.status === 'Belum Beruntung') onNavigate('loser');
+                                            }}
+                                            className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${h.status === 'Menang'
+                                                ? 'bg-primary text-white shadow-lg shadow-primary/20 hover:bg-blue-700'
+                                                : h.status === 'Belum Beruntung'
+                                                    ? 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                                                    : 'bg-slate-50 text-slate-400 cursor-default'
+                                                }`}
+                                            disabled={h.status === 'Proses'}
                                         >
-                                            {h.status === 'Menang' ? 'Klaim Hadiah' : 'Lihat Detail'}
+                                            {h.status === 'Menang' ? 'Klaim Hadiah' : h.status === 'Belum Beruntung' ? 'Lihat Detail' : 'Menunggu'}
                                         </button>
                                     </div>
                                 </div>

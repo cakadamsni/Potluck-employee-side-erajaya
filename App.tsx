@@ -8,9 +8,10 @@ import SuccessView from './views/SuccessView';
 import WinnerView from './views/WinnerView';
 import HistoryView from './views/HistoryView';
 import ProfileView from './views/ProfileView';
+import LoserView from './views/LoserView';
 import { Product } from './types';
 
-export type ViewType = 'login' | 'dashboard' | 'event-detail' | 'cart' | 'success' | 'winner' | 'history' | 'profile';
+export type ViewType = 'login' | 'dashboard' | 'event-detail' | 'cart' | 'success' | 'winner' | 'loser' | 'history' | 'profile';
 
 const App: React.FC = () => {
     const [currentView, setCurrentView] = useState<ViewType>('login');
@@ -61,6 +62,8 @@ const App: React.FC = () => {
                 return <SuccessView onNavigate={navigateTo} selectedProducts={selectedProducts} />;
             case 'winner':
                 return <WinnerView onNavigate={navigateTo} />;
+            case 'loser':
+                return <LoserView onNavigate={navigateTo} />;
             case 'history':
                 return <HistoryView onNavigate={navigateTo} onLogout={handleLogout} />;
             case 'profile':

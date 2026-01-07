@@ -84,29 +84,30 @@ const SuccessView: React.FC<SuccessViewProps> = ({ onNavigate, selectedProducts 
                                 </div>
                             </div>
 
-                            <div className="mt-8 pt-8 border-t border-slate-50">
-                                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Detail Karyawan</h4>
-                                <div className="grid grid-cols-2 gap-y-6 gap-x-4">
-                                    {[
-                                        { label: 'Nama Lengkap', value: MOCK_USER.name },
-                                        { label: 'NIK', value: MOCK_USER.nik },
-                                    ].map((item, idx) => (
-                                        <div key={idx}>
-                                            <p className="text-[10px] text-slate-400 uppercase font-black mb-1">{item.label}</p>
-                                            <p className="text-sm font-black text-slate-900">{item.value}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+
                         </div>
 
                         <div className="md:col-span-5 p-10 bg-slate-50/50 flex flex-col items-center justify-center text-center relative">
                             {/* Decorative punch */}
                             <div className="hidden md:block absolute -left-4 top-1/2 -translate-y-1/2 size-8 rounded-full bg-background-light border-r border-slate-200"></div>
 
-                            <div className="mb-0">
+                            <div className="mb-8">
                                 <p className="text-xs font-black text-primary uppercase tracking-widest mb-2">Nomor Undian Anda</p>
                                 <div className="text-3xl font-black text-slate-900 tracking-tighter">#NYS2026-0234</div>
+                            </div>
+
+                            <div className="w-full border-t border-slate-200 pt-8">
+                                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Detail Pendaftar</h4>
+                                <div className="space-y-6">
+                                    <div>
+                                        <p className="text-[10px] text-slate-400 uppercase font-black mb-1">Nama Lengkap</p>
+                                        <p className="text-lg font-black text-slate-900">{MOCK_USER.name}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] text-slate-400 uppercase font-black mb-1">NIK</p>
+                                        <p className="text-lg font-black text-slate-900">{MOCK_USER.nik}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

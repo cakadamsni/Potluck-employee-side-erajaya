@@ -87,10 +87,14 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onLogout }) =
                                             </div>
                                         </div>
                                         <button
-                                            onClick={() => onNavigate('event-detail')}
-                                            className="w-full py-3 rounded-xl bg-primary text-white font-bold text-sm shadow-lg shadow-primary/20 hover:bg-blue-700 transition-all active:scale-[0.98]"
+                                            onClick={() => (event.status !== 'Coming Soon' && event.status !== 'Selesai') && onNavigate('event-detail')}
+                                            disabled={event.status === 'Coming Soon' || event.status === 'Selesai'}
+                                            className={`w-full py-3 rounded-xl font-bold text-sm transition-all ${event.status === 'Coming Soon' || event.status === 'Selesai'
+                                                ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                                                : 'bg-primary text-white shadow-lg shadow-primary/20 hover:bg-blue-700 active:scale-[0.98]'
+                                                }`}
                                         >
-                                            Daftar Sekarang
+                                            {event.status === 'Coming Soon' ? 'Segera Hadir' : event.status === 'Selesai' ? 'Event Selesai' : 'Daftar Sekarang'}
                                         </button>
                                     </div>
                                 </div>

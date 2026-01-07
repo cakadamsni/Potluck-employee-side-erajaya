@@ -13,7 +13,7 @@ const WinnerView: React.FC<WinnerViewProps> = ({ onNavigate }) => {
                 <div className="flex items-center gap-4 text-slate-900">
                     <div className="size-8 text-primary">
                         <svg className="h-full w-full" fill="currentColor" viewBox="0 0 48 48">
-                            <path d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z"/>
+                            <path d="M13.8261 17.4264C16.7203 18.1174 20.2244 18.5217 24 18.5217C27.7756 18.5217 31.2797 18.1174 34.1739 17.4264C36.9144 16.7722 39.9967 15.2331 41.3563 14.1648L24.8486 40.6391C24.4571 41.267 23.5429 41.267 23.1514 40.6391L6.64374 14.1648C8.00331 15.2331 11.0856 16.7722 13.8261 17.4264Z" />
                         </svg>
                     </div>
                     <h2 className="text-lg font-black tracking-tight uppercase">Erajaya Gadget Lottery</h2>
@@ -57,10 +57,11 @@ const WinnerView: React.FC<WinnerViewProps> = ({ onNavigate }) => {
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
                                     {[
-                                        { label: 'Event Undian', value: 'Erajaya Apple Q4 Lottery' },
+                                        { label: 'Event Undian', value: 'Apple New Year Sale 2026' },
                                         { label: 'Nomor Undian', value: 'LTY-882910' },
-                                        { label: 'Pemenang', value: `${MOCK_USER.name} (${MOCK_USER.nik})` },
-                                        { label: 'Tanggal Undian', value: '24 Oktober 2026' },
+                                        { label: 'Nama Karyawan', value: MOCK_USER.name },
+                                        { label: 'NIK Karyawan', value: MOCK_USER.nik },
+
                                     ].map((item, idx) => (
                                         <div key={idx} className="p-6">
                                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{item.label}</p>
@@ -71,37 +72,26 @@ const WinnerView: React.FC<WinnerViewProps> = ({ onNavigate }) => {
                             </div>
 
                             {/* Prize Details */}
-                            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col md:flex-row">
-                                <div className="md:w-2/5 p-8 bg-slate-50/50 flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-100">
-                                    <div className="bg-white size-56 rounded-3xl shadow-lg border border-slate-100 flex items-center justify-center p-8 group overflow-hidden">
-                                        <span className="material-symbols-outlined text-[120px] text-slate-300 group-hover:scale-110 transition-transform duration-700">smartphone</span>
+                            <div className="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden flex flex-col p-6 gap-6">
+                                <h3 className="text-xl font-black text-slate-900 tracking-tight">Hadiah Anda</h3>
+
+                                <div className="group bg-white rounded-2xl border border-slate-200 p-4 flex flex-col md:flex-row items-center gap-4">
+                                    <div className="flex-1 w-full md:w-auto">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <h3 className="text-lg font-bold text-slate-900 leading-tight">iPhone 15 Pro</h3>
+                                        </div>
+                                        <p className="text-sm text-slate-500 font-medium">Ini Deskripsi produk (opsional)</p>
                                     </div>
-                                </div>
-                                <div className="md:w-3/5 p-8 flex flex-col justify-center">
-                                    <h3 className="text-3xl font-black text-slate-900 tracking-tight mb-6">iPhone 15 Pro - 256GB</h3>
-                                    <div className="grid grid-cols-2 gap-y-8 gap-x-4">
-                                        <div>
-                                            <p className="text-[10px] font-black text-slate-400 uppercase mb-2 tracking-widest">Warna</p>
-                                            <div className="flex items-center gap-2">
-                                                <div className="size-4 rounded-full bg-[#bebebe] border border-slate-300 shadow-sm"></div>
-                                                <p className="text-sm font-black text-slate-900">Natural Titanium</p>
-                                            </div>
+
+                                    <div className="flex items-center justify-between w-full md:w-auto gap-6 md:gap-12">
+                                        <div className="flex flex-col items-end">
+                                            <span className="text-[10px] uppercase text-slate-400 font-black">Harga Karyawan</span>
+                                            <span className="text-primary font-black text-lg">Rp 18.500.000</span>
                                         </div>
-                                        <div>
-                                            <p className="text-[10px] font-black text-slate-400 uppercase mb-2 tracking-widest">Storage</p>
-                                            <p className="text-sm font-black text-slate-900">256 GB</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-[10px] font-black text-slate-400 uppercase mb-2 tracking-widest">Harga Karyawan</p>
-                                            <p className="text-2xl font-black text-primary tracking-tighter">Rp 18.500.000</p>
-                                            <p className="text-[10px] font-bold text-slate-400 uppercase">*Harga khusus pemenang</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-[10px] font-black text-slate-400 uppercase mb-2 tracking-widest">Garansi</p>
-                                            <p className="text-sm font-black text-slate-900 flex items-center gap-1">
-                                                <span className="material-symbols-outlined text-green-500 text-[20px]">verified_user</span>
-                                                iBox Official 1 Year
-                                            </p>
+
+                                        <div className="flex flex-col items-center">
+                                            <span className="text-[10px] uppercase text-slate-400 font-black">Jumlah Dimenangkan</span>
+                                            <span className="font-bold text-slate-900">1 Unit</span>
                                         </div>
                                     </div>
                                 </div>
@@ -118,19 +108,11 @@ const WinnerView: React.FC<WinnerViewProps> = ({ onNavigate }) => {
                                     </h3>
                                 </div>
                                 <div className="p-8 flex flex-col gap-8">
-                                    <div className="flex flex-col items-center gap-4 p-6 bg-slate-50 rounded-2xl border-2 border-dashed border-slate-200">
-                                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Scan saat pengambilan</p>
-                                        <div className="bg-white p-3 rounded-2xl shadow-xl">
-                                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=WIN-882910" alt="QR WIN" className="size-32 grayscale opacity-90" />
-                                        </div>
-                                        <p className="text-[10px] font-black text-slate-900 tracking-widest uppercase">Kode: WIN-882910</p>
-                                    </div>
 
                                     <div className="space-y-6">
                                         {[
-                                            { label: 'Tanggal & Waktu', value: 'Jumat, 27 Jan 2026', sub: '10:00 - 15:00 WIB', icon: 'calendar_month' },
+                                            { label: 'Tanggal & Waktu', value: 'Jumat, 02 Februari 2026', sub: '10:00 - 15:00 WIB', icon: 'calendar_month' },
                                             { label: 'Lokasi Pengambilan', value: 'Erajaya Plaza, Lt. 3', sub: 'Jl. Bandengan Selatan No. 19-20', icon: 'location_on' },
-                                            { label: 'PIC', value: 'Sarah (HR GA)', sub: 'Ext. 2029', icon: 'person' },
                                         ].map((item, idx) => (
                                             <div key={idx} className="flex gap-4">
                                                 <div className="size-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary shrink-0">
@@ -163,7 +145,7 @@ const WinnerView: React.FC<WinnerViewProps> = ({ onNavigate }) => {
 
                     {/* Bottom Actions */}
                     <div className="sticky bottom-6 z-40 bg-white/90 backdrop-blur-md border border-slate-200 p-4 rounded-3xl shadow-2xl flex flex-wrap items-center justify-between gap-4">
-                        <button 
+                        <button
                             onClick={() => onNavigate('dashboard')}
                             className="text-slate-500 hover:text-primary font-black text-[10px] uppercase tracking-widest flex items-center gap-2 px-4 transition-all"
                         >
@@ -171,14 +153,6 @@ const WinnerView: React.FC<WinnerViewProps> = ({ onNavigate }) => {
                             Kembali ke Dashboard
                         </button>
                         <div className="flex flex-wrap gap-3">
-                            <button className="h-12 px-6 rounded-xl border border-slate-200 bg-white text-slate-900 hover:bg-slate-50 font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all">
-                                <span className="material-symbols-outlined text-[20px]">calendar_clock</span>
-                                Reschedule
-                            </button>
-                            <button className="h-12 px-6 rounded-xl border border-slate-200 bg-white text-slate-900 hover:bg-slate-50 font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all">
-                                <span className="material-symbols-outlined text-[20px] text-green-500">chat</span>
-                                Hubungi PIC
-                            </button>
                             <button className="h-12 px-8 rounded-xl bg-primary text-white shadow-xl shadow-primary/30 hover:bg-blue-700 font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all transform hover:-translate-y-1">
                                 <span className="material-symbols-outlined text-[20px]">download</span>
                                 Download PDF

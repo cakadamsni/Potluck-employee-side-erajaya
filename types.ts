@@ -48,6 +48,7 @@ export interface RaffleHistory {
     id: string;
     eventName: string;
     drawDate: string;
+    pickupPeriod: string;
     pointsUsed: number;
     status: 'Menang' | 'Belum Beruntung' | 'Proses';
 }
