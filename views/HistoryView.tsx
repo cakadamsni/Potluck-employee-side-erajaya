@@ -81,7 +81,7 @@ const HistoryView: React.FC<HistoryViewProps> = ({ onNavigate, onLogout }) => {
                                                 }`}
                                             disabled={h.status === 'Proses'}
                                         >
-                                            {h.status === 'Menang' ? 'Klaim Hadiah' : h.status === 'Belum Beruntung' ? 'Lihat Detail' : 'Menunggu'}
+                                            {h.status === 'Menang' ? 'Lihat Detail' : h.status === 'Belum Beruntung' ? 'Lihat Detail' : 'Menunggu'}
                                         </button>
                                     </div>
                                 </div>
