@@ -43,22 +43,22 @@ const App: React.FC = () => {
                 return <DashboardView onNavigate={navigateTo} onLogout={handleLogout} />;
             case 'event-detail':
                 return (
-                    <EventDetailView 
-                        onNavigate={navigateTo} 
+                    <EventDetailView
+                        onNavigate={navigateTo}
                         selectedProducts={selectedProducts}
                         onToggleProduct={toggleProductSelection}
                     />
                 );
             case 'cart':
                 return (
-                    <CartView 
-                        onNavigate={navigateTo} 
-                        selectedProducts={selectedProducts} 
-                        onRemoveProduct={toggleProductSelection} 
+                    <CartView
+                        onNavigate={navigateTo}
+                        selectedProducts={selectedProducts}
+                        onRemoveProduct={toggleProductSelection}
                     />
                 );
             case 'success':
-                return <SuccessView onNavigate={navigateTo} />;
+                return <SuccessView onNavigate={navigateTo} selectedProducts={selectedProducts} />;
             case 'winner':
                 return <WinnerView onNavigate={navigateTo} />;
             case 'history':

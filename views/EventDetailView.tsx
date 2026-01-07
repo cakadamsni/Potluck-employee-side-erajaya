@@ -32,13 +32,21 @@ const EventDetailView: React.FC<EventDetailViewProps> = ({ onNavigate, selectedP
             </nav>
 
             <main className="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-6">
-                <nav className="flex items-center space-x-2 text-sm font-medium">
-                    <button onClick={() => onNavigate('dashboard')} className="text-slate-500 hover:text-primary">Home</button>
-                    <span className="text-slate-300">/</span>
-                    <span className="text-slate-500">Event List</span>
-                    <span className="text-slate-300">/</span>
-                    <span className="text-slate-900 font-bold">Detail Event</span>
-                </nav>
+                <div className="flex items-center gap-4">
+                    <button
+                        onClick={() => onNavigate('dashboard')}
+                        className="flex items-center gap-2 text-slate-500 hover:text-slate-900 transition-colors font-bold text-sm"
+                    >
+                        <span className="material-symbols-outlined text-[20px]">arrow_back</span>
+                        Kembali
+                    </button>
+                    <div className="h-4 w-px bg-slate-300"></div>
+                    <nav className="flex items-center space-x-2 text-sm font-medium">
+                        <span className="text-slate-500">Event List</span>
+                        <span className="text-slate-300">/</span>
+                        <span className="text-slate-900 font-bold">Detail Event</span>
+                    </nav>
+                </div>
 
                 <section className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                     <div className="p-8 border-b border-slate-100 flex flex-col md:flex-row md:justify-between items-start gap-4">
@@ -52,16 +60,13 @@ const EventDetailView: React.FC<EventDetailViewProps> = ({ onNavigate, selectedP
                             <h1 className="text-3xl font-black text-slate-900 uppercase tracking-tight">{event.title}</h1>
                             <p className="text-slate-500 text-sm max-w-2xl">{event.description}</p>
                         </div>
-                        <button className="flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-bold transition-all">
-                            <span className="material-symbols-outlined text-[18px]">share</span>
-                            Share Event
-                        </button>
+
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-100 bg-slate-50/30">
                         {[
-                            { label: 'Periode Event', value: event.period, icon: 'calendar_month', color: 'text-primary' },
-                            { label: 'Batas Pendaftaran', value: event.deadline, icon: 'event_busy', color: 'text-red-500' },
+                            { label: 'Booking Date', value: event.period, icon: 'calendar_month', color: 'text-primary' },
+                            { label: 'Pengambilan Barang', value: event.pickupPeriod, icon: 'local_shipping', color: 'text-blue-600' },
                             { label: 'Tanggal Pengundian', value: event.drawDate, icon: 'celebration', color: 'text-amber-500' },
                             { label: 'Maksimal Produk', value: `${event.maxProducts} Produk / Karyawan`, icon: 'shopping_bag', color: 'text-primary' },
                         ].map((stat, idx) => (
@@ -100,58 +105,37 @@ const EventDetailView: React.FC<EventDetailViewProps> = ({ onNavigate, selectedP
                             </div>
                             <input className="block w-full pl-10 pr-3 py-2.5 border-slate-200 rounded-xl bg-white shadow-sm focus:ring-primary focus:border-primary text-sm" placeholder="Cari produk (e.g. iPhone)" />
                         </div>
-                        <div className="flex bg-slate-200 p-1 rounded-xl">
-                            {['Semua', 'iPhone', 'MacBook', 'Watch'].map((cat, idx) => (
-                                <button key={idx} className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all ${idx === 0 ? 'bg-white shadow-sm text-slate-900' : 'text-slate-500 hover:text-slate-900'}`}>{cat}</button>
-                            ))}
-                        </div>
+
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="flex flex-col gap-4">
                     {MOCK_PRODUCTS.map(product => {
                         const isSelected = !!selectedProducts.find(p => p.id === product.id);
                         return (
-                            <div key={product.id} className={`group bg-white rounded-2xl border flex flex-col h-full overflow-hidden transition-all duration-300 relative ${isSelected ? 'border-primary ring-2 ring-primary/20 shadow-lg' : 'border-slate-200 hover:border-primary/50'}`}>
-                                {isSelected && (
-                                    <div className="absolute top-3 right-3 z-10 bg-primary text-white p-1 rounded-full shadow-md">
-                                        <span className="material-symbols-outlined text-[16px] block">check</span>
+                            <div key={product.id} className={`group bg-white rounded-2xl border p-4 flex flex-col md:flex-row items-center gap-4 transition-all duration-300 ${isSelected ? 'border-primary ring-1 ring-primary/20 shadow-md' : 'border-slate-200 hover:border-primary/50'}`}>
+                                <div className="flex-1 w-full md:w-auto">
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <h3 className="text-lg font-bold text-slate-900 leading-tight">{product.name}</h3>
                                     </div>
-                                )}
-                                <div className="h-48 bg-slate-50 flex items-center justify-center p-6 relative">
-                                    <div className="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-black px-2 py-1 rounded">HEMAT {product.discountPercent}%</div>
-                                    <span className="material-symbols-outlined text-7xl text-slate-300 group-hover:scale-110 transition-transform duration-500">{product.imageUrl}</span>
+                                    <p className="text-sm text-slate-500 font-medium">Warna: {product.color}</p>
                                 </div>
-                                <div className="p-5 flex flex-col flex-1">
-                                    <div className="mb-4">
-                                        <h3 className="text-lg font-extrabold text-slate-900 leading-tight mb-1">{product.name}</h3>
-                                        <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">Warna: {product.color}</p>
+
+                                <div className="flex items-center justify-between w-full md:w-auto gap-6 md:gap-12">
+                                    <div className="flex flex-col items-end">
+                                        <span className="text-[10px] uppercase text-slate-400 font-black">Harga</span>
+                                        <span className="text-primary font-black text-lg">Rp {product.discountPrice.toLocaleString()}</span>
                                     </div>
-                                    <div className="flex flex-col mb-4">
-                                        <span className="text-slate-400 text-xs line-through font-bold">Rp {product.originalPrice.toLocaleString()}</span>
-                                        <span className="text-primary font-black text-xl">Rp {product.discountPrice.toLocaleString()}</span>
+
+                                    <div className="flex flex-col items-center">
+                                        <span className="text-[10px] uppercase text-slate-400 font-black">Stok</span>
+                                        <span className="font-bold text-slate-900">{product.stock} Unit</span>
                                     </div>
-                                    <div className="grid grid-cols-2 gap-2 text-[10px] mb-6 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                                        <div className="flex flex-col">
-                                            <span className="text-slate-400 font-black uppercase">Stok</span>
-                                            <span className="font-bold text-slate-900">{product.stock} Unit</span>
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-slate-400 font-black uppercase">Peminat</span>
-                                            <span className="font-bold text-slate-900">{product.applicants} Org</span>
-                                        </div>
-                                        <div className="col-span-2 mt-2 pt-2 border-t border-slate-200 flex items-center justify-between">
-                                            <span className="text-slate-400 font-black uppercase">Peluang</span>
-                                            <span className={`font-black flex items-center gap-1 ${product.chanceColor === 'green' ? 'text-green-600' : 'text-amber-500'}`}>
-                                                <span className="material-symbols-outlined text-[14px]">trending_up</span> {product.chance}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <button 
+
+                                    <button
                                         onClick={() => onToggleProduct(product)}
-                                        className={`mt-auto w-full py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all ${
-                                            isSelected ? 'bg-primary/10 text-primary border-2 border-primary' : 'bg-primary text-white shadow-lg shadow-primary/20 hover:bg-blue-700'
-                                        }`}
+                                        className={`px-6 py-2.5 rounded-xl font-bold text-sm flex items-center gap-2 transition-all ${isSelected ? 'bg-primary/10 text-primary border border-primary' : 'bg-primary text-white shadow-lg shadow-primary/20 hover:bg-blue-700'
+                                            }`}
                                     >
                                         {isSelected ? (
                                             <>
@@ -159,7 +143,7 @@ const EventDetailView: React.FC<EventDetailViewProps> = ({ onNavigate, selectedP
                                                 Terpilih
                                             </>
                                         ) : (
-                                            'Pilih Produk'
+                                            'Pilih'
                                         )}
                                     </button>
                                 </div>
@@ -187,12 +171,11 @@ const EventDetailView: React.FC<EventDetailViewProps> = ({ onNavigate, selectedP
                             <div className={`h-full bg-primary transition-all duration-500`} style={{ width: `${(selectedProducts.length / event.maxProducts) * 100}%` }}></div>
                         </div>
                     </div>
-                    <button 
+                    <button
                         disabled={selectedProducts.length === 0}
                         onClick={() => onNavigate('cart')}
-                        className={`w-full sm:w-auto min-w-[220px] flex items-center justify-center gap-2 font-black py-3.5 px-8 rounded-xl transition-all ${
-                            selectedProducts.length === 0 ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-primary text-white shadow-xl shadow-primary/30 hover:bg-blue-700 active:scale-[0.98]'
-                        }`}
+                        className={`w-full sm:w-auto min-w-[220px] flex items-center justify-center gap-2 font-black py-3.5 px-8 rounded-xl transition-all ${selectedProducts.length === 0 ? 'bg-slate-100 text-slate-400 cursor-not-allowed' : 'bg-primary text-white shadow-xl shadow-primary/30 hover:bg-blue-700 active:scale-[0.98]'
+                            }`}
                     >
                         <span>Lanjut ke Review</span>
                         <span className="material-symbols-outlined text-[20px]">arrow_forward</span>

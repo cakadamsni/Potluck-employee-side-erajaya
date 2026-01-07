@@ -1,12 +1,15 @@
 
 import React from 'react';
-import { MOCK_USER } from '../constants';
+import { MOCK_USER, MOCK_EVENTS, MOCK_PRODUCTS } from '../constants';
+import { Product } from '../types';
 
 interface SuccessViewProps {
     onNavigate: (view: any) => void;
+    selectedProducts?: Product[];
 }
 
-const SuccessView: React.FC<SuccessViewProps> = ({ onNavigate }) => {
+const SuccessView: React.FC<SuccessViewProps> = ({ onNavigate, selectedProducts = MOCK_PRODUCTS.slice(0, 1) }) => {
+    const event = MOCK_EVENTS[0];
     return (
         <div className="min-h-screen bg-background-light font-sans flex flex-col">
             <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200 h-16 flex items-center justify-between px-6 lg:px-20">
@@ -33,8 +36,8 @@ const SuccessView: React.FC<SuccessViewProps> = ({ onNavigate }) => {
                     </div>
                     <h1 className="text-4xl font-black tracking-tight text-slate-900 uppercase">Pendaftaran Berhasil!</h1>
                     <p className="text-slate-500 font-medium max-w-xl mx-auto leading-relaxed">
-                        Terima kasih, data Anda telah kami terima untuk Erajaya Apple Gadget Lottery. <br/> Simpan nomor undian ini sebagai bukti kepesertaan.
-                    </p>
+                        Terima kasih, data Anda telah kami terima untuk Erajaya Raffle. <br />
+                    </p>Semoga Beruntung.
                 </div>
 
                 {/* Digital Ticket */}
@@ -46,28 +49,47 @@ const SuccessView: React.FC<SuccessViewProps> = ({ onNavigate }) => {
                             <div className="hidden md:block absolute -right-4 top-1/2 -translate-y-1/2 size-8 rounded-full bg-background-light border-l border-slate-200"></div>
 
                             <div className="flex items-start gap-6">
-                                <div className="size-32 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 flex-shrink-0">
-                                    <span className="material-symbols-outlined text-6xl text-slate-300">smartphone</span>
-                                </div>
+                                <img src={event.imageUrl} className="size-32 rounded-2xl object-cover border border-slate-100 flex-shrink-0" alt="Event" />
                                 <div className="space-y-2">
-                                    <span className="inline-block px-3 py-1 rounded-lg bg-blue-50 text-primary text-[10px] font-black tracking-widest uppercase">Digital Ticket</span>
-                                    <h3 className="text-2xl font-black text-slate-900">iPhone 15 Pro</h3>
-                                    <p className="text-slate-400 font-bold text-sm uppercase">Titanium Blue • 256GB</p>
-                                    <div className="pt-2 flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-widest">
-                                        <span className="material-symbols-outlined text-sm">calendar_today</span>
-                                        Pengundian: 25 Jan 2026
+                                    <span className="inline-block px-3 py-1 rounded-lg bg-blue-50 text-primary text-[10px] font-black tracking-widest uppercase">Detail Event</span>
+                                    <h3 className="text-2xl font-black text-slate-900 leading-tight">{event.title}</h3>
+                                    <div className="space-y-1">
+                                        <p className="text-slate-500 font-bold text-sm uppercase flex items-center gap-2">
+                                            <span className="material-symbols-outlined text-base">location_on</span>
+                                            {event.location}
+                                        </p>
+                                        <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
+                                            <span className="material-symbols-outlined text-sm">calendar_today</span>
+                                            {event.period}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="mt-12 pt-8 border-t border-slate-50">
+                            <div className="mt-8 pt-8 border-t border-slate-50">
+                                <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Barang yang Dipilih</h4>
+                                <div className="space-y-4">
+                                    {selectedProducts.map((product, idx) => (
+                                        <div key={idx} className="flex items-center justify-between bg-slate-50/80 rounded-xl p-4 border border-slate-100">
+                                            <div>
+                                                <h5 className="font-bold text-slate-900 text-sm">{product.name}</h5>
+                                                <p className="text-xs text-slate-500 font-medium">{product.color}</p>
+                                            </div>
+                                            <div className="text-right">
+                                                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block">Booking Qty</span>
+                                                <span className="text-sm font-black text-primary">1 Unit</span>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="mt-8 pt-8 border-t border-slate-50">
                                 <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Detail Karyawan</h4>
                                 <div className="grid grid-cols-2 gap-y-6 gap-x-4">
                                     {[
                                         { label: 'Nama Lengkap', value: MOCK_USER.name },
                                         { label: 'NIK', value: MOCK_USER.nik },
-                                        { label: 'Departemen', value: MOCK_USER.division },
-                                        { label: 'Lokasi', value: MOCK_USER.location },
                                     ].map((item, idx) => (
                                         <div key={idx}>
                                             <p className="text-[10px] text-slate-400 uppercase font-black mb-1">{item.label}</p>
@@ -82,29 +104,25 @@ const SuccessView: React.FC<SuccessViewProps> = ({ onNavigate }) => {
                             {/* Decorative punch */}
                             <div className="hidden md:block absolute -left-4 top-1/2 -translate-y-1/2 size-8 rounded-full bg-background-light border-r border-slate-200"></div>
 
-                            <div className="mb-8">
+                            <div className="mb-0">
                                 <p className="text-xs font-black text-primary uppercase tracking-widest mb-2">Nomor Undian Anda</p>
                                 <div className="text-3xl font-black text-slate-900 tracking-tighter">#NYS2026-0234</div>
                             </div>
-                            <div className="p-4 bg-white rounded-2xl shadow-xl border border-slate-100 mb-6">
-                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=NYS2026-0234" alt="QR Code" className="size-32 grayscale opacity-90" />
-                            </div>
-                            <p className="text-xs text-slate-400 font-bold max-w-[200px] leading-relaxed uppercase tracking-wider">
-                                Scan kode ini di lokasi acara untuk verifikasi kehadiran.
-                            </p>
                         </div>
                     </div>
                 </div>
 
                 {/* Progress Steps */}
-                <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm mb-8">
-                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-8">Status Pendaftaran</h3>
-                    <div className="relative">
+                <div className="bg-blue-50/40 backdrop-blur-sm p-8 rounded-2xl border border-blue-100/50 shadow-sm mb-8 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-4 opacity-5">
+                        <span className="material-symbols-outlined text-6xl text-primary">casino</span>
+                    </div>
+                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-8 relative z-10">Status Pendaftaran</h3>
+                    <div className="relative z-10">
                         <div className="absolute top-1/2 left-0 w-full h-1 bg-slate-100 -translate-y-1/2 rounded hidden md:block"></div>
-                        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
                             {[
                                 { label: 'Pendaftaran', status: 'Berhasil • 24 Jan', active: true, done: true, icon: 'how_to_reg' },
-                                { label: 'Verifikasi', status: 'Sedang Proses', active: true, done: false, icon: 'fact_check' },
                                 { label: 'Pengundian', status: '25 Jan 2026', active: false, done: false, icon: 'casino' },
                                 { label: 'Pengumuman', status: '01 Feb 2026', active: false, done: false, icon: 'campaign' },
                             ].map((step, idx) => (
@@ -130,21 +148,14 @@ const SuccessView: React.FC<SuccessViewProps> = ({ onNavigate }) => {
                     <div>
                         <h4 className="text-sm font-black text-amber-800 uppercase tracking-widest mb-1">Tips Penting</h4>
                         <p className="text-xs text-amber-700/80 leading-relaxed font-bold uppercase tracking-wide">
-                            Pastikan email perusahaan Anda aktif. Kami akan mengirimkan notifikasi pemenang melalui email resmi Erajaya. Jangan bagikan QR code Anda.
+                            Anda akan menerima notifikasi jika Anda berhasil terpilih setelah Pengundian dilakukan pada tanggal yang tertera.
                         </p>
                     </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row gap-4 items-center justify-between pb-12">
-                    <div className="flex gap-3 w-full md:w-auto order-2 md:order-1">
-                        <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 font-black text-[10px] uppercase tracking-widest transition-all">
-                            <span className="material-symbols-outlined text-lg">mail</span> Email
-                        </button>
-                        <button className="flex-1 md:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 font-black text-[10px] uppercase tracking-widest transition-all">
-                            <span className="material-symbols-outlined text-lg">download</span> PDF
-                        </button>
-                    </div>
-                    <button 
+                <div className="flex flex-col md:flex-row gap-4 items-center justify-center pb-12">
+
+                    <button
                         onClick={() => onNavigate('dashboard')}
                         className="w-full md:w-auto order-1 md:order-2 flex items-center justify-center gap-2 px-10 py-4 rounded-xl bg-primary text-white shadow-xl shadow-primary/20 font-black text-sm uppercase tracking-widest hover:bg-blue-700 transition-all transform hover:-translate-y-1"
                     >
