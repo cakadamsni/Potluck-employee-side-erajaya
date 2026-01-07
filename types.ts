@@ -22,6 +22,9 @@ export interface RaffleEvent {
     period: string;
     deadline: string;
     drawDate: string;
+    pickupPeriod: string;
+    location: string;
+    quota: number;
     maxProducts: number;
     status: 'Aktif' | 'Coming Soon' | 'Selesai';
     type: 'Public Event' | 'Private Event';
