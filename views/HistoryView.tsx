@@ -63,10 +63,18 @@ const HistoryView: React.FC<HistoryViewProps> = ({ onNavigate, onLogout }) => {
                                     <div className="flex items-center justify-between md:justify-end gap-6 border-t md:border-t-0 pt-4 md:pt-0">
                                         <div className="text-right">
                                             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">Status</p>
-                                            <span className={`inline-flex px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider ${h.status === 'Menang' ? 'bg-green-100 text-green-700' : 'bg-red-50 text-red-600'
-                                                }`}>
-                                                {h.status}
-                                            </span>
+                                            <div className="flex items-center gap-2 justify-end">
+                                                <span className={`inline-flex px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider ${h.status === 'Menang' ? 'bg-green-100 text-green-700' : 'bg-red-50 text-red-600'
+                                                    }`}>
+                                                    {h.status}
+                                                </span>
+                                                {h.status === 'Menang' && h.isPresent && (
+                                                    <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider flex items-center gap-1">
+                                                        <span className="material-symbols-outlined text-[16px]">check_circle</span>
+                                                        Sudah Absen
+                                                    </span>
+                                                )}
+                                            </div>
                                         </div>
                                         <button
                                             onClick={() => {

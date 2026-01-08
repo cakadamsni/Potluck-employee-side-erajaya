@@ -70,7 +70,6 @@ const WinnerView: React.FC<WinnerViewProps> = ({ onNavigate }) => {
                                         Detail Undian
                                     </h3>
                                     <div className="flex items-center gap-2">
-                                        <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider">Terverifikasi</span>
                                         {isPresent && (
                                             <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider flex items-center gap-1">
                                                 <span className="material-symbols-outlined text-[16px]">check_circle</span>

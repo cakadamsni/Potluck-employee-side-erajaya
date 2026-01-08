@@ -52,4 +52,5 @@ export interface RaffleHistory {
     pickupPeriod: string;
     pointsUsed: number;
     status: 'Menang' | 'Belum Beruntung' | 'Proses';
+    isPresent?: boolean;
 }

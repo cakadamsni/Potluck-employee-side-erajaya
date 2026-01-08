@@ -126,6 +126,6 @@ export const MOCK_EVENTS: RaffleEvent[] = [
 
 export const MOCK_HISTORY: RaffleHistory[] = [
     { id: "h1", eventName: "Event Ramadhan Sale", drawDate: "15 Sep 2023, 14:00 WIB", pickupPeriod: "16 - 18 Sep 2023", pointsUsed: 500, status: "Belum Beruntung" },
-    { id: "h2", eventName: "Apple New Year Sale 2026", drawDate: "01 Agu 2023, 10:00 WIB", pickupPeriod: "02 - 04 Agu 2023", pointsUsed: 200, status: "Menang" },
+    { id: "h2", eventName: "Apple New Year Sale 2026", drawDate: "01 Agu 2023, 10:00 WIB", pickupPeriod: "02 - 04 Agu 2023", pointsUsed: 200, status: "Menang", isPresent: true },
     { id: "h3", eventName: "Event Kemerdekaan 2025", drawDate: "12 Jul 2023, 09:00 WIB", pickupPeriod: "13 - 15 Jul 2023", pointsUsed: 400, status: "Belum Beruntung" }
 ];
