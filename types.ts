@@ -28,6 +28,7 @@ export interface RaffleEvent {
     maxProducts: number;
     status: 'Aktif' | 'Coming Soon' | 'Selesai';
     type: 'Public Event' | 'Private Event';
+    eventType: 'Raffle' | 'Queue';
     imageUrl?: string;
 }
 

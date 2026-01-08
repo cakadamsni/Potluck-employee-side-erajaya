@@ -1,5 +1,6 @@
 
-import React from 'react';
+
+import React, { useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import { MOCK_USER, MOCK_EVENTS, MOCK_HISTORY } from '../constants';
 import { ViewType } from '../App';
@@ -9,7 +10,16 @@ interface DashboardViewProps {
     onLogout: () => void;
 }
 
+type EventFilter = 'Semua' | 'Raffle' | 'Queue';
+
 const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onLogout }) => {
+    const [selectedFilter, setSelectedFilter] = useState<EventFilter>('Semua');
+
+    // Filter events based on selected filter
+    const filteredEvents = selectedFilter === 'Semua'
+        ? MOCK_EVENTS
+        : MOCK_EVENTS.filter(event => event.eventType === selectedFilter);
+
     return (
         <div className="flex h-screen w-full bg-background-light overflow-hidden">
             <Sidebar active="dashboard" onLogout={onLogout} onNavigate={onNavigate} />
@@ -21,9 +31,6 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onLogout }) =
                             <p className="text-slate-500">Selamat datang kembali, {MOCK_USER.name}! 👋</p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <button className="size-10 flex items-center justify-center rounded-lg bg-white border border-slate-200 text-slate-500 hover:bg-slate-50 transition-colors">
-                                <span className="material-symbols-outlined">notifications</span>
-                            </button>
                             <img src={MOCK_USER.profilePic} className="size-10 rounded-full object-cover ring-2 ring-primary/20 cursor-pointer" onClick={() => onNavigate('profile')} alt="Profile" />
                         </div>
                     </header>
@@ -47,10 +54,26 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onLogout }) =
                     <section>
                         <div className="flex items-center justify-between mb-4">
                             <h2 className="text-xl font-bold text-slate-900">Event Raffle Aktif</h2>
-                            <button className="text-sm font-bold text-primary hover:underline">Lihat Semua</button>
+                            <div className="flex items-center gap-3">
+                                <span className="text-sm font-medium text-slate-600">Tipe Event</span>
+                                <div className="relative">
+                                    <select
+                                        value={selectedFilter}
+                                        onChange={(e) => setSelectedFilter(e.target.value as EventFilter)}
+                                        className="px-4 py-2 pr-10 rounded-lg text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer appearance-none"
+                                    >
+                                        <option value="Semua">Semua</option>
+                                        <option value="Raffle">Raffle</option>
+                                        <option value="Queue">Queue</option>
+                                    </select>
+                                    <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none text-[20px]">
+                                        expand_more
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {MOCK_EVENTS.map(event => (
+                            {filteredEvents.map(event => (
                                 <div key={event.id} className="group flex flex-col bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all">
                                     <div className="relative aspect-[21/9] overflow-hidden">
                                         <img src={event.imageUrl} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={event.title} />
@@ -81,10 +104,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onLogout }) =
                                                 <span className="material-symbols-outlined text-[18px] text-slate-400">location_on</span>
                                                 <span>{event.location}</span>
                                             </div>
-                                            <div className="flex items-center gap-2 text-sm text-slate-500 font-medium">
-                                                <span className="material-symbols-outlined text-[18px] text-slate-400">group</span>
-                                                <span>Quota: {event.quota} Employee</span>
-                                            </div>
+
                                         </div>
                                         <button
                                             onClick={() => (event.status !== 'Coming Soon' && event.status !== 'Selesai') && onNavigate('event-detail')}

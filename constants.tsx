@@ -87,6 +87,7 @@ export const MOCK_EVENTS: RaffleEvent[] = [
         maxProducts: 2,
         status: "Aktif",
         type: "Public Event",
+        eventType: "Raffle",
         imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuBeA5z54-EMncKS1Ao43VB7P0oR7NekeBkdzT3BFJMuNmSkkcA0ns-DyimmEJ8vXGczmPere1f0BRzh7WXh7RXryeGt3HyF48XgtC2OFohV5-2Nst-snEhYuIq4bCTWFMxELrFKfQBqJd71L1hYfPAgo_LclSuPbeYjSUERwifevQEgFXZ57RdxfDuh_A6BhF3CdUfrZ5Z-ImCEZquApMDJBuPfExsgSkY29gKos1nnmQszR12XC7u8n6mj-aRVXPYvyO7YdbxmK1G3"
     },
     {
@@ -102,6 +103,7 @@ export const MOCK_EVENTS: RaffleEvent[] = [
         maxProducts: 1,
         status: "Coming Soon",
         type: "Public Event",
+        eventType: "Raffle",
         imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDoo5njJX60PBYtA-eOwVB4aha2VX8hd_bvkSk1h6nvM5YQMS5aPy0hm9IZhsUsjyZPdNryTaPsV_HqacSiZ_uxqOcToxw8_b32FiBW6UWfLasB8f2VTvXswwCONxIpHUD1TASbGsafgP5arNt_HaU7a835GyTcmziGLUulc6FwJwTgnDzOj3dAG9IxZjb4mA5r6UaaDWf1YUqWYiX59YInbwvSwwfXfElXNqzBfhAd8-dMxwA5PraENgKMIKs_3-7FCPb2tTqnY6wV"
     },
     {
@@ -117,6 +119,7 @@ export const MOCK_EVENTS: RaffleEvent[] = [
         maxProducts: 1,
         status: "Selesai",
         type: "Public Event",
+        eventType: "Queue",
         imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuB2_qLdK-_x3v1qQJ8qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL"
     }
 ];

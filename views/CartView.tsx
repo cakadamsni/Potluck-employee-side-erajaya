@@ -11,7 +11,7 @@ interface CartViewProps {
 
 const CartView: React.FC<CartViewProps> = ({ onNavigate, selectedProducts, onRemoveProduct }) => {
     const event = MOCK_EVENTS[0];
-    const [isAgreed, setIsAgreed] = useState(false);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
 
     return (
         <div className="min-h-screen bg-background-light font-sans">
@@ -131,19 +131,6 @@ const CartView: React.FC<CartViewProps> = ({ onNavigate, selectedProducts, onRem
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col gap-4">
-                                        <label className="flex items-start gap-3 cursor-pointer group">
-                                            <input
-                                                type="checkbox"
-                                                className="mt-1 h-5 w-5 text-primary focus:ring-primary border-slate-300 rounded"
-                                                required
-                                                checked={isAgreed}
-                                                onChange={(e) => setIsAgreed(e.target.checked)}
-                                            />
-                                            <span className="text-xs text-slate-500 font-bold leading-relaxed group-hover:text-slate-900 transition-colors">Saya menyetujui syarat & ketentuan undian yang berlaku di Erajaya Group.</span>
-                                        </label>
-                                    </div>
-
                                     <div className="grid grid-cols-2 gap-3 pt-2">
                                         <button
                                             onClick={() => onNavigate('event-detail')}
@@ -152,12 +139,8 @@ const CartView: React.FC<CartViewProps> = ({ onNavigate, selectedProducts, onRem
                                             Batal
                                         </button>
                                         <button
-                                            onClick={() => onNavigate('success')}
-                                            disabled={!isAgreed}
-                                            className={`rounded-xl px-4 py-4 text-xs font-black text-white shadow-xl transition-all flex items-center justify-center gap-2 uppercase tracking-widest ${isAgreed
-                                                ? 'bg-primary shadow-primary/30 hover:bg-blue-700 cursor-pointer'
-                                                : 'bg-slate-300 shadow-none cursor-not-allowed'
-                                                }`}
+                                            onClick={() => setShowConfirmModal(true)}
+                                            className="rounded-xl px-4 py-4 text-xs font-black text-white shadow-xl transition-all flex items-center justify-center gap-2 uppercase tracking-widest bg-primary shadow-primary/30 hover:bg-blue-700 cursor-pointer"
                                         >
                                             Daftar Raffle
                                             <span className="material-symbols-outlined text-sm">arrow_forward</span>
@@ -174,6 +157,45 @@ const CartView: React.FC<CartViewProps> = ({ onNavigate, selectedProducts, onRem
                     </aside>
                 </div>
             </main>
+
+            {/* Confirmation Modal */}
+            {showConfirmModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden animate-scale-in">
+                        <div className="bg-primary p-6">
+                            <div className="flex items-center gap-3">
+                                <span className="material-symbols-outlined text-white text-3xl">warning</span>
+                                <h3 className="text-white font-black text-xl tracking-tight">Konfirmasi Pendaftaran</h3>
+                            </div>
+                        </div>
+                        <div className="p-6">
+                            <p className="text-slate-700 font-medium leading-relaxed mb-6">
+                                Setelah Anda mengkonfirmasi pendaftaran ini, <b className="text-slate-900">pilihan barang yang telah dipilih tidak dapat diubah lagi</b>.
+                            </p>
+                            <p className="text-slate-700 font-medium leading-relaxed mb-6">
+                                Apakah Anda yakin ingin melanjutkan pendaftaran raffle?
+                            </p>
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={() => setShowConfirmModal(false)}
+                                    className="flex-1 rounded-xl px-6 py-4 text-sm font-black text-slate-600 bg-slate-100 hover:bg-slate-200 transition-all uppercase tracking-widest"
+                                >
+                                    Tidak
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        setShowConfirmModal(false);
+                                        onNavigate('success');
+                                    }}
+                                    className="flex-1 rounded-xl px-6 py-4 text-sm font-black text-white bg-primary hover:bg-blue-700 shadow-xl shadow-primary/30 transition-all uppercase tracking-widest"
+                                >
+                                    Ya, Lanjutkan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

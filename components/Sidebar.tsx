@@ -33,9 +33,8 @@ const Sidebar: React.FC<SidebarProps> = ({ active, onLogout, onNavigate }) => {
                         <button
                             key={item.id}
                             onClick={() => onNavigate(item.id)}
-                            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold text-sm ${
-                                active === item.id ? 'bg-primary/10 text-primary shadow-sm' : 'text-slate-500 hover:bg-slate-50'
-                            }`}
+                            className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold text-sm ${active === item.id ? 'bg-primary/10 text-primary shadow-sm' : 'text-slate-500 hover:bg-slate-50'
+                                }`}
                         >
                             <span className={`material-symbols-outlined ${active === item.id ? 'filled-icon' : ''}`}>
                                 {item.icon}
@@ -43,19 +42,11 @@ const Sidebar: React.FC<SidebarProps> = ({ active, onLogout, onNavigate }) => {
                             {item.label}
                         </button>
                     ))}
-                    <div className="h-px bg-slate-100 my-4"></div>
-                    <button
-                        onClick={() => onNavigate('dashboard')}
-                        className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-semibold text-sm text-slate-500 hover:bg-slate-50"
-                    >
-                        <span className="material-symbols-outlined">help</span>
-                        Bantuan
-                    </button>
                 </nav>
             </div>
 
             <div className="pt-6 border-t border-slate-100">
-                <button 
+                <button
                     onClick={onLogout}
                     className="flex items-center gap-3 px-4 py-3 w-full text-slate-500 hover:text-red-600 transition-colors font-semibold text-sm"
                 >
