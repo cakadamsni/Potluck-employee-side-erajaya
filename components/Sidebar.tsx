@@ -11,7 +11,6 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ active, onLogout, onNavigate }) => {
     const navItems: { id: ViewType; label: string; icon: string }[] = [
         { id: 'dashboard', label: 'Dashboard', icon: 'dashboard' },
-        { id: 'profile', label: 'Profil Saya', icon: 'person' },
         { id: 'history', label: 'Riwayat Undian', icon: 'history' },
     ];
 

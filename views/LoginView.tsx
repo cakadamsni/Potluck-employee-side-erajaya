@@ -33,8 +33,8 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                 <div className="w-full max-w-6xl flex flex-col lg:flex-row bg-white rounded-2xl shadow-xl overflow-hidden min-h-[600px]">
                     <div className="hidden lg:flex lg:w-1/2 bg-slate-900 relative flex-col justify-between p-12 text-white">
                         <div className="absolute inset-0 z-0">
-                            <img 
-                                alt="Apple Raffle Promotion" 
+                            <img
+                                alt="Apple Raffle Promotion"
                                 className="w-full h-full object-cover opacity-80"
                                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-LYlzP622XxW_yXZpzSeHjUsN5XnoFoxMTv5PLIjboQRSTXd5jg6ROUtko-8SJlwpy_P901X4dUMb9FpkNrQ137lKCvlgWV3X2l75oiILy4xld1330cNU60AbihMvlLqdXpX3IlLdYKAh6FUWa6R8TXka2BsQ9QxB-PSWbzgkeKWppFVSjXjac7ecOuoX8rDb1pQJxpNlOw9ERLMc51Yh3GuPAyUcmrAW7v1wEjsiSZ_a4QdgZ2sF2XPR1Zc9GhYbzjKgNPkq53nS"
                             />
@@ -52,11 +52,11 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                         <div className="relative z-10 flex gap-4 mt-auto">
                             <div className="flex -space-x-3">
                                 {[1, 2, 3].map(i => (
-                                    <img 
-                                        key={i} 
-                                        className="h-10 w-10 rounded-full ring-2 ring-slate-800 object-cover" 
-                                        src={`https://picsum.photos/seed/${i + 50}/100/100`} 
-                                        alt="Winner Profile" 
+                                    <img
+                                        key={i}
+                                        className="h-10 w-10 rounded-full ring-2 ring-slate-800 object-cover"
+                                        src={`https://picsum.photos/seed/${i + 50}/100/100`}
+                                        alt="Winner Profile"
                                     />
                                 ))}
                                 <div className="flex items-center justify-center h-10 w-10 rounded-full ring-2 ring-slate-800 bg-white/20 backdrop-blur-sm text-xs font-medium">
@@ -107,7 +107,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                                 <div className="pt-2">
                                     <button className="w-full flex justify-center items-center py-3 px-4 rounded-lg shadow-sm text-sm font-bold text-white bg-primary hover:bg-blue-700 transition-colors tracking-wide" type="submit">
                                         <span className="material-symbols-outlined mr-2 text-[20px]">login</span>
-                                        LOGIN VIA SSO ERAJAYA
+                                        LOGIN
                                     </button>
                                 </div>
                             </form>

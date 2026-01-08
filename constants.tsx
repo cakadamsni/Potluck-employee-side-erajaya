@@ -11,7 +11,7 @@ export const MOCK_USER: UserStats = {
     raffleJoined: 18,
     totalWins: 2,
     activeEvents: 5,
-    profilePic: "https://lh3.googleusercontent.com/aida-public/AB6AXuAxwXG4YLXT5pfBmt_knPTje3mrzkjtIhT1K4oe_K2JwcMuRjNfeh3-2C1qsZH0Kq80JnKXwKI7CvPIEAEC-tLC56du9NXQdRrYTRRgrNHhF5-otND1ODPysn5CflxU_BgC05UakAR-48dUJ5oFQQRhormJ0a91D_avANAdU_aNgtkh1smtSZh72yqkFAalIpjFYWJqbMwF-p-z3-p2DSjInvUscY9GI2eu74_Ihha7ejRkxYzDPMbSvuKzPdw04de6RdYmrQKSCBHA"
+    profilePic: "/profile_pic.png"
 };
 
 export const MOCK_PRODUCTS: Product[] = [
@@ -120,12 +120,12 @@ export const MOCK_EVENTS: RaffleEvent[] = [
         status: "Selesai",
         type: "Public Event",
         eventType: "Queue",
-        imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuB2_qLdK-_x3v1qQJ8qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL8xQ2qL"
+        imageUrl: "/kemerdekaan.jpg"
     }
 ];
 
 export const MOCK_HISTORY: RaffleHistory[] = [
-    { id: "h1", eventName: "Event Ramadhan Sale", drawDate: "15 Sep 2023, 14:00 WIB", pickupPeriod: "16 - 18 Sep 2023", pointsUsed: 500, status: "Belum Beruntung" },
-    { id: "h2", eventName: "Apple New Year Sale 2026", drawDate: "01 Agu 2023, 10:00 WIB", pickupPeriod: "02 - 04 Agu 2023", pointsUsed: 200, status: "Menang", isPresent: true },
-    { id: "h3", eventName: "Event Kemerdekaan 2025", drawDate: "12 Jul 2023, 09:00 WIB", pickupPeriod: "13 - 15 Jul 2023", pointsUsed: 400, status: "Belum Beruntung" }
+    { id: "h1", eventName: "Event Ramadhan Sale", drawDate: "15 Sep 2023, 14:00 WIB", pickupPeriod: "16 - 18 Sep 2023", pointsUsed: 500, status: "Belum Beruntung", eventType: "Raffle" },
+    { id: "h2", eventName: "Apple New Year Sale 2026", drawDate: "01 Agu 2023, 10:00 WIB", pickupPeriod: "02 - 04 Agu 2023", pointsUsed: 200, status: "Menang", isPresent: true, eventType: "Raffle" },
+    { id: "h3", eventName: "Event Kemerdekaan 2025", drawDate: "12 Jul 2023, 09:00 WIB", pickupPeriod: "13 - 15 Jul 2023", pointsUsed: 400, status: "Belum Beruntung", eventType: "Queue" }
 ];

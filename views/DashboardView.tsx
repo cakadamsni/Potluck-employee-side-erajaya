@@ -30,22 +30,23 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onLogout }) =
                             <h1 className="text-3xl font-black text-slate-900 tracking-tight">Dashboard Utama</h1>
                             <p className="text-slate-500">Selamat datang kembali, {MOCK_USER.name}! 👋</p>
                         </div>
-                        <div className="flex items-center gap-4">
-                            <img src={MOCK_USER.profilePic} className="size-10 rounded-full object-cover ring-2 ring-primary/20 cursor-pointer" onClick={() => onNavigate('profile')} alt="Profile" />
-                        </div>
                     </header>
 
-                    {/* Points Banner */}
-                    <div className="rounded-2xl bg-white p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    {/* Profile Banner */}
+                    <div
+                        onClick={() => onNavigate('profile')}
+                        className="rounded-2xl bg-white p-6 shadow-sm border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-pointer hover:border-primary/30 transition-all group"
+                    >
                         <div className="flex items-center gap-4">
-                            <img src={MOCK_USER.profilePic} className="size-20 rounded-full border-4 border-slate-50 shadow-sm" alt="Profile Big" />
+                            <img src={MOCK_USER.profilePic} className="size-20 rounded-full border-4 border-slate-50 shadow-sm transition-transform group-hover:scale-105" alt="Profile Big" />
                             <div>
                                 <div className="flex items-center gap-2">
-                                    <h3 className="text-2xl font-bold text-slate-900">{MOCK_USER.name}</h3>
+                                    <h3 className="text-2xl font-bold text-slate-900 group-hover:text-primary transition-colors">{MOCK_USER.name}</h3>
                                 </div>
                                 <p className="text-slate-500 text-sm font-medium">NIK: {MOCK_USER.nik}</p>
                             </div>
                         </div>
+                        <span className="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors hidden md:block">chevron_right</span>
                     </div>
 
 
