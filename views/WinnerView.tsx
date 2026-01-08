@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { MOCK_USER } from '../constants';
 
 interface WinnerViewProps {
@@ -7,6 +7,22 @@ interface WinnerViewProps {
 }
 
 const WinnerView: React.FC<WinnerViewProps> = ({ onNavigate }) => {
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [isPresent, setIsPresent] = useState(false);
+
+    const handlePresentClick = () => {
+        setShowConfirmModal(true);
+    };
+
+    const handleConfirmPresent = () => {
+        setIsPresent(true);
+        setShowConfirmModal(false);
+    };
+
+    const handleCancelPresent = () => {
+        setShowConfirmModal(false);
+    };
+
     return (
         <div className="min-h-screen bg-background-light font-sans flex flex-col">
             <header className="sticky top-0 z-50 bg-white border-b border-slate-200 px-6 py-3 shadow-sm flex items-center justify-between">
@@ -53,7 +69,15 @@ const WinnerView: React.FC<WinnerViewProps> = ({ onNavigate }) => {
                                         <span className="material-symbols-outlined text-primary">confirmation_number</span>
                                         Detail Undian
                                     </h3>
-                                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider">Terverifikasi</span>
+                                    <div className="flex items-center gap-2">
+                                        <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider">Terverifikasi</span>
+                                        {isPresent && (
+                                            <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider flex items-center gap-1">
+                                                <span className="material-symbols-outlined text-[16px]">check_circle</span>
+                                                Sudah Absen
+                                            </span>
+                                        )}
+                                    </div>
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-100">
                                     {[
@@ -153,6 +177,15 @@ const WinnerView: React.FC<WinnerViewProps> = ({ onNavigate }) => {
                             Kembali ke Dashboard
                         </button>
                         <div className="flex flex-wrap gap-3">
+                            {!isPresent && (
+                                <button
+                                    onClick={handlePresentClick}
+                                    className="h-12 px-8 rounded-xl bg-green-600 text-white shadow-xl shadow-green-600/30 hover:bg-green-700 font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all transform hover:-translate-y-1"
+                                >
+                                    <span className="material-symbols-outlined text-[20px]">how_to_reg</span>
+                                    Present
+                                </button>
+                            )}
                             <button className="h-12 px-8 rounded-xl bg-primary text-white shadow-xl shadow-primary/30 hover:bg-blue-700 font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all transform hover:-translate-y-1">
                                 <span className="material-symbols-outlined text-[20px]">download</span>
                                 Download PDF
@@ -161,6 +194,45 @@ const WinnerView: React.FC<WinnerViewProps> = ({ onNavigate }) => {
                     </div>
                 </div>
             </main>
+
+            {/* Confirmation Modal */}
+            {showConfirmModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+                    <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in duration-200">
+                        <div className="p-6 bg-primary text-white">
+                            <div className="flex items-center gap-3">
+                                <span className="material-symbols-outlined text-4xl">info</span>
+                                <h3 className="text-xl font-black uppercase tracking-tight">Konfirmasi Kehadiran</h3>
+                            </div>
+                        </div>
+                        <div className="p-8">
+                            <p className="text-slate-700 font-medium text-base leading-relaxed mb-6">
+                                Dengan menekan tombol "Ya", Anda akan <span className="font-black text-slate-900">terdeteksi sudah absen</span> dan sistem akan mencatat kehadiran Anda untuk pengambilan hadiah ini.
+                            </p>
+                            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+                                <p className="text-xs text-amber-800 font-bold flex items-start gap-2">
+                                    <span className="material-symbols-outlined text-[16px] mt-0.5">warning</span>
+                                    <span>Pastikan Anda berada di lokasi pengambilan sebelum melakukan absensi.</span>
+                                </p>
+                            </div>
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={handleCancelPresent}
+                                    className="flex-1 h-12 rounded-xl border-2 border-slate-200 text-slate-700 hover:bg-slate-50 font-black text-sm uppercase tracking-widest transition-all"
+                                >
+                                    Tidak
+                                </button>
+                                <button
+                                    onClick={handleConfirmPresent}
+                                    className="flex-1 h-12 rounded-xl bg-green-600 text-white hover:bg-green-700 font-black text-sm uppercase tracking-widest shadow-lg shadow-green-600/30 transition-all transform hover:-translate-y-0.5"
+                                >
+                                    Ya, Absen Sekarang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
