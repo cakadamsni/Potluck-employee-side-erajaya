@@ -122,12 +122,8 @@ const CartView: React.FC<CartViewProps> = ({ onNavigate, selectedProducts, onRem
                                     <div className="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3">
                                         <span className="material-symbols-outlined text-primary">info</span>
                                         <div className="text-xs text-slate-600 leading-relaxed font-medium">
-                                            <p className="font-black text-slate-900 mb-1 uppercase tracking-wider">Informasi Penting</p>
-                                            <ul className="list-disc pl-4 space-y-1">
-                                                <li>Pemenang akan dikenakan <b>potongan gaji</b>.</li>
-                                                <li>Produk tidak dapat dipindah tangankan.</li>
-                                                <li>Setiap karyawan hanya dapat menang 1 unit.</li>
-                                            </ul>
+                                            <p className="font-black text-slate-900 mb-1 uppercase tracking-wider text-[10px]">Peringatan!</p>
+                                            <p className="text-red-600 font-bold">Pilihan tidak dapat diubah setelah disubmit.</p>
                                         </div>
                                     </div>
 
