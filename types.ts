@@ -55,3 +55,9 @@ export interface RaffleHistory {
     eventType: 'Raffle' | 'Queue';
     isPresent?: boolean;
 }
+
+export interface NIKStorage {
+    nik: string;
+    submittedAt: string; // ISO timestamp
+    email: string; // untuk tracking
+}

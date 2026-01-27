@@ -9,13 +9,16 @@ import WinnerView from './views/WinnerView';
 import HistoryView from './views/HistoryView';
 import ProfileView from './views/ProfileView';
 import LoserView from './views/LoserView';
-import { Product } from './types';
+import NIKModal from './components/NIKModal';
+import { Product, NIKStorage } from './types';
 
 export type ViewType = 'login' | 'dashboard' | 'event-detail' | 'cart' | 'success' | 'winner' | 'loser' | 'history' | 'profile';
 
 const App: React.FC = () => {
     const [currentView, setCurrentView] = useState<ViewType>('login');
     const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+    const [showNIKModal, setShowNIKModal] = useState(false);
+    const [userNIK, setUserNIK] = useState<string | null>(null);
 
     const toggleProductSelection = (product: Product) => {
         if (selectedProducts.find(p => p.id === product.id)) {
@@ -29,12 +32,49 @@ const App: React.FC = () => {
         }
     };
 
-    const handleLogin = () => setCurrentView('dashboard');
+    const handleLogin = () => {
+        // Cek apakah NIK sudah tersimpan di localStorage
+        const storedNIK = localStorage.getItem('erajaya_potluck_nik');
+
+        if (storedNIK) {
+            try {
+                const nikData: NIKStorage = JSON.parse(storedNIK);
+                setUserNIK(nikData.nik);
+                setShowNIKModal(false);
+            } catch (error) {
+                // Jika data corrupt, bersihkan dan minta input ulang
+                localStorage.removeItem('erajaya_potluck_nik');
+                setShowNIKModal(true);
+            }
+        } else {
+            // NIK belum ada, tampilkan modal
+            setShowNIKModal(true);
+        }
+
+        setCurrentView('dashboard');
+    };
     const handleLogout = () => {
         setCurrentView('login');
         setSelectedProducts([]);
+        // NIK tetap tersimpan saat logout, tidak dihapus
     };
     const navigateTo = (view: ViewType) => setCurrentView(view);
+
+    const handleNIKSubmit = (nik: string) => {
+        try {
+            const nikData: NIKStorage = {
+                nik: nik,
+                submittedAt: new Date().toISOString(),
+                email: 'user@erajaya.com' // TODO: Get from actual login data
+            };
+
+            localStorage.setItem('erajaya_potluck_nik', JSON.stringify(nikData));
+            setUserNIK(nik);
+            setShowNIKModal(false);
+        } catch (error) {
+            alert('Gagal menyimpan NIK. Silakan coba lagi atau hubungi IT Support.');
+        }
+    };
 
     const renderView = () => {
         switch (currentView) {
@@ -76,6 +116,9 @@ const App: React.FC = () => {
     return (
         <div className="min-h-screen bg-background-light text-slate-900 transition-colors duration-300">
             {renderView()}
+            {showNIKModal && currentView === 'dashboard' && (
+                <NIKModal onSubmit={handleNIKSubmit} />
+            )}
         </div>
     );
 };
