@@ -108,14 +108,20 @@ const DashboardView: React.FC<DashboardViewProps> = ({ onNavigate, onLogout }) =
 
                                         </div>
                                         <button
-                                            onClick={() => (event.status !== 'Coming Soon' && event.status !== 'Selesai') && onNavigate('event-detail')}
+                                            onClick={() => {
+                                                if (event.status !== 'Coming Soon' && event.status !== 'Selesai') {
+                                                    onNavigate(event.eventType === 'Queue' ? 'queue-detail' : 'event-detail');
+                                                }
+                                            }}
                                             disabled={event.status === 'Coming Soon' || event.status === 'Selesai'}
                                             className={`w-full py-3 rounded-xl font-bold text-sm transition-all ${event.status === 'Coming Soon' || event.status === 'Selesai'
                                                 ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                                                : 'bg-primary text-white shadow-lg shadow-primary/20 hover:bg-blue-700 active:scale-[0.98]'
+                                                : event.eventType === 'Queue'
+                                                    ? 'bg-gradient-to-r from-purple-600 to-primary text-white shadow-lg shadow-purple-500/20 hover:from-purple-700 hover:to-blue-700 active:scale-[0.98]'
+                                                    : 'bg-primary text-white shadow-lg shadow-primary/20 hover:bg-blue-700 active:scale-[0.98]'
                                                 }`}
                                         >
-                                            {event.status === 'Coming Soon' ? 'Segera Hadir' : event.status === 'Selesai' ? 'Event Selesai' : 'Daftar Sekarang'}
+                                            {event.status === 'Coming Soon' ? 'Segera Hadir' : event.status === 'Selesai' ? 'Event Selesai' : event.eventType === 'Queue' ? 'Ambil Antrian' : 'Daftar Sekarang'}
                                         </button>
                                     </div>
                                 </div>

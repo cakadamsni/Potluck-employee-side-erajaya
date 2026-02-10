@@ -32,6 +32,16 @@ export interface RaffleEvent {
     imageUrl?: string;
 }
 
+export interface TimeSegment {
+    id: string;
+    label: string;
+    startTime: string;
+    endTime: string;
+    totalQuota: number;
+    remainingQuota: number;
+    date: string;
+}
+
 export interface UserStats {
     raffleJoined: number;
     totalWins: number;
@@ -51,9 +61,11 @@ export interface RaffleHistory {
     drawDate: string;
     pickupPeriod: string;
     pointsUsed: number;
-    status: 'Menang' | 'Belum Beruntung' | 'Proses';
+    status: 'Menang' | 'Belum Beruntung' | 'Proses' | 'Antrian' | 'Gagal Antrian';
     eventType: 'Raffle' | 'Queue';
     isPresent?: boolean;
+    queueNumber?: string;
+    timeSegment?: string;
 }
 
 export interface NIKStorage {

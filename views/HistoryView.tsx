@@ -7,10 +7,11 @@ import { ViewType } from '../App';
 interface HistoryViewProps {
     onNavigate: (view: ViewType) => void;
     onLogout: () => void;
+    onQueueDetail: (queueNumber: string, timeSegment: string) => void;
 }
 
-const HistoryView: React.FC<HistoryViewProps> = ({ onNavigate, onLogout }) => {
-    const [filter, setFilter] = useState<'Semua' | 'Menang' | 'Belum Beruntung' | 'Proses'>('Semua');
+const HistoryView: React.FC<HistoryViewProps> = ({ onNavigate, onLogout, onQueueDetail }) => {
+    const [filter, setFilter] = useState<'Semua' | 'Menang' | 'Belum Beruntung' | 'Proses' | 'Antrian' | 'Gagal Antrian'>('Semua');
     const [typeFilter, setTypeFilter] = useState<'Semua' | 'Raffle' | 'Queue'>('Semua');
 
     // Helper function to get event image from MOCK_EVENTS based on event name
@@ -47,6 +48,8 @@ const HistoryView: React.FC<HistoryViewProps> = ({ onNavigate, onLogout }) => {
                                     <option value="Semua">Semua Status</option>
                                     <option value="Menang">Menang</option>
                                     <option value="Belum Beruntung">Belum Beruntung</option>
+                                    <option value="Antrian">Antrian</option>
+                                    <option value="Gagal Antrian">Gagal Antrian</option>
                                     <option value="Proses">Dalam Proses</option>
                                 </select>
                                 <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 group-hover:text-primary pointer-events-none text-[20px] transition-colors">
@@ -96,9 +99,16 @@ const HistoryView: React.FC<HistoryViewProps> = ({ onNavigate, onLogout }) => {
                                             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-1 text-sm text-slate-500 font-medium">
                                                 <span className="flex items-center gap-1">
                                                     <span className="material-symbols-outlined text-[18px]">calendar_today</span>
-                                                    Undian: {h.drawDate}
+                                                    {h.eventType === 'Queue' ? `Segment: ${h.timeSegment || '-'}` : `Undian: ${h.drawDate}`}
                                                 </span>
                                             </div>
+                                            {/* Queue Number Badge */}
+                                            {h.eventType === 'Queue' && h.queueNumber && (
+                                                <div className="mt-2 inline-flex items-center gap-2 bg-purple-50 border border-purple-100 rounded-lg px-3 py-1.5">
+                                                    <span className="material-symbols-outlined text-purple-600 text-[16px]">confirmation_number</span>
+                                                    <span className="text-sm font-black text-purple-700">{h.queueNumber}</span>
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
 
@@ -108,7 +118,9 @@ const HistoryView: React.FC<HistoryViewProps> = ({ onNavigate, onLogout }) => {
                                             <div className="flex items-center gap-2 justify-end">
                                                 <span className={`inline-flex px-3 py-1 rounded-full text-[10px] md:text-xs font-black uppercase tracking-wider ${h.status === 'Menang' ? 'bg-green-100 text-green-700' :
                                                     h.status === 'Belum Beruntung' ? 'bg-red-50 text-red-600' :
-                                                        'bg-amber-50 text-amber-600'
+                                                        h.status === 'Antrian' ? 'bg-purple-100 text-purple-700' :
+                                                            h.status === 'Gagal Antrian' ? 'bg-red-100 text-red-600' :
+                                                                'bg-amber-50 text-amber-600'
                                                     }`}>
                                                     {h.status}
                                                 </span>
@@ -124,16 +136,24 @@ const HistoryView: React.FC<HistoryViewProps> = ({ onNavigate, onLogout }) => {
                                             onClick={() => {
                                                 if (h.status === 'Menang') onNavigate('winner');
                                                 else if (h.status === 'Belum Beruntung') onNavigate('loser');
+                                                else if (h.status === 'Antrian' && h.queueNumber && h.timeSegment) {
+                                                    onQueueDetail(h.queueNumber, h.timeSegment);
+                                                    onNavigate('queue-success');
+                                                }
                                             }}
                                             className={`px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${h.status === 'Menang'
                                                 ? 'bg-primary text-white shadow-lg shadow-primary/20 hover:bg-blue-700'
                                                 : h.status === 'Belum Beruntung'
                                                     ? 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-                                                    : 'bg-slate-50 text-slate-400 cursor-default'
+                                                    : h.status === 'Antrian'
+                                                        ? 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                                                        : h.status === 'Gagal Antrian'
+                                                            ? 'bg-red-50 text-red-400 cursor-not-allowed'
+                                                            : 'bg-slate-50 text-slate-400 cursor-default'
                                                 }`}
-                                            disabled={h.status === 'Proses'}
+                                            disabled={h.status === 'Proses' || h.status === 'Gagal Antrian'}
                                         >
-                                            {h.status === 'Menang' ? 'Lihat Detail' : h.status === 'Belum Beruntung' ? 'Lihat Detail' : 'Menunggu'}
+                                            {h.status === 'Menang' ? 'Lihat Detail' : h.status === 'Belum Beruntung' ? 'Lihat Detail' : h.status === 'Antrian' ? 'Lihat Tiket' : h.status === 'Gagal Antrian' ? 'Gagal' : 'Menunggu'}
                                         </button>
                                     </div>
                                 </div>

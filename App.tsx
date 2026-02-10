@@ -9,16 +9,20 @@ import WinnerView from './views/WinnerView';
 import HistoryView from './views/HistoryView';
 import ProfileView from './views/ProfileView';
 import LoserView from './views/LoserView';
+import QueueDetailView from './views/QueueDetailView';
+import QueueSuccessView from './views/QueueSuccessView';
 import NIKModal from './components/NIKModal';
 import { Product, NIKStorage } from './types';
 
-export type ViewType = 'login' | 'dashboard' | 'event-detail' | 'cart' | 'success' | 'winner' | 'loser' | 'history' | 'profile';
+export type ViewType = 'login' | 'dashboard' | 'event-detail' | 'cart' | 'success' | 'winner' | 'loser' | 'history' | 'profile' | 'queue-detail' | 'queue-success';
 
 const App: React.FC = () => {
     const [currentView, setCurrentView] = useState<ViewType>('login');
     const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
     const [showNIKModal, setShowNIKModal] = useState(false);
     const [userNIK, setUserNIK] = useState<string | null>(null);
+    const [queueNumber, setQueueNumber] = useState<string>('');
+    const [selectedTimeSegment, setSelectedTimeSegment] = useState<string>('');
 
     const toggleProductSelection = (product: Product) => {
         if (selectedProducts.find(p => p.id === product.id)) {
@@ -59,6 +63,11 @@ const App: React.FC = () => {
         // NIK tetap tersimpan saat logout, tidak dihapus
     };
     const navigateTo = (view: ViewType) => setCurrentView(view);
+
+    const handleQueueSuccess = (number: string, segment: string) => {
+        setQueueNumber(number);
+        setSelectedTimeSegment(segment);
+    };
 
     const handleNIKSubmit = (nik: string) => {
         try {
@@ -104,8 +113,12 @@ const App: React.FC = () => {
                 return <WinnerView onNavigate={navigateTo} />;
             case 'loser':
                 return <LoserView onNavigate={navigateTo} />;
+            case 'queue-detail':
+                return <QueueDetailView onNavigate={navigateTo} onQueueSuccess={handleQueueSuccess} />;
+            case 'queue-success':
+                return <QueueSuccessView onNavigate={navigateTo} queueNumber={queueNumber} timeSegment={selectedTimeSegment} />;
             case 'history':
-                return <HistoryView onNavigate={navigateTo} onLogout={handleLogout} />;
+                return <HistoryView onNavigate={navigateTo} onLogout={handleLogout} onQueueDetail={handleQueueSuccess} />;
             case 'profile':
                 return <ProfileView onNavigate={navigateTo} onLogout={handleLogout} />;
             default:

@@ -1,5 +1,5 @@
 
-import { Product, RaffleEvent, UserStats, RaffleHistory } from './types';
+import { Product, RaffleEvent, UserStats, RaffleHistory, TimeSegment } from './types';
 
 export const MOCK_USER: UserStats = {
     name: "Budi Santoso",
@@ -121,11 +121,68 @@ export const MOCK_EVENTS: RaffleEvent[] = [
         type: "Public Event",
         eventType: "Queue",
         imageUrl: "/kemerdekaan.jpg"
+    },
+    {
+        id: "e4",
+        title: "Potluck Valentine 2026",
+        description: "Event spesial Valentine! Rebutan nomor antrian untuk mendapatkan produk eksklusif dengan harga spesial karyawan. Siapa cepat dia dapat!",
+        period: "10 - 14 Feb 2026",
+        deadline: "14 Feb 2026",
+        drawDate: "-",
+        pickupPeriod: "15 - 17 Feb 2026",
+        location: "Erajaya Plaza, Lt. 3",
+        quota: 80,
+        maxProducts: 1,
+        status: "Aktif",
+        type: "Public Event",
+        eventType: "Queue",
+        imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDoo5njJX60PBYtA-eOwVB4aha2VX8hd_bvkSk1h6nvM5YQMS5aPy0hm9IZhsUsjyZPdNryTaPsV_HqacSiZ_uxqOcToxw8_b32FiBW6UWfLasB8f2VTvXswwCONxIpHUD1TASbGsafgP5arNt_HaU7a835GyTcmziGLUulc6FwJwTgnDzOj3dAG9IxZjb4mA5r6UaaDWf1YUqWYiX59YInbwvSwwfXfElXNqzBfhAd8-dMxwA5PraENgKMIKs_3-7FCPb2tTqnY6wV"
+    }
+];
+
+export const MOCK_TIME_SEGMENTS: TimeSegment[] = [
+    {
+        id: "ts1",
+        label: "Sesi 1",
+        startTime: "09:00",
+        endTime: "10:00",
+        totalQuota: 20,
+        remainingQuota: 5,
+        date: "15 Feb 2026"
+    },
+    {
+        id: "ts2",
+        label: "Sesi 2",
+        startTime: "10:00",
+        endTime: "11:00",
+        totalQuota: 20,
+        remainingQuota: 0,
+        date: "15 Feb 2026"
+    },
+    {
+        id: "ts3",
+        label: "Sesi 3",
+        startTime: "11:00",
+        endTime: "12:00",
+        totalQuota: 20,
+        remainingQuota: 12,
+        date: "15 Feb 2026"
+    },
+    {
+        id: "ts4",
+        label: "Sesi 4",
+        startTime: "13:00",
+        endTime: "14:00",
+        totalQuota: 20,
+        remainingQuota: 3,
+        date: "15 Feb 2026"
     }
 ];
 
 export const MOCK_HISTORY: RaffleHistory[] = [
     { id: "h1", eventName: "Event Ramadhan Sale", drawDate: "15 Sep 2023, 14:00 WIB", pickupPeriod: "16 - 18 Sep 2023", pointsUsed: 500, status: "Belum Beruntung", eventType: "Raffle" },
     { id: "h2", eventName: "Apple New Year Sale 2026", drawDate: "01 Agu 2023, 10:00 WIB", pickupPeriod: "02 - 04 Agu 2023", pointsUsed: 200, status: "Menang", isPresent: true, eventType: "Raffle" },
-    { id: "h3", eventName: "Event Kemerdekaan 2025", drawDate: "12 Jul 2023, 09:00 WIB", pickupPeriod: "13 - 15 Jul 2023", pointsUsed: 400, status: "Belum Beruntung", eventType: "Queue" }
+    { id: "h3", eventName: "Event Kemerdekaan 2025", drawDate: "12 Jul 2023, 09:00 WIB", pickupPeriod: "13 - 15 Jul 2023", pointsUsed: 400, status: "Antrian", eventType: "Queue", queueNumber: "Q-017", timeSegment: "Sesi 1 (09:00 - 10:00)" },
+    { id: "h4", eventName: "Potluck Valentine 2026", drawDate: "-", pickupPeriod: "15 - 17 Feb 2026", pointsUsed: 0, status: "Gagal Antrian", eventType: "Queue", timeSegment: "Sesi 2 (10:00 - 11:00)" }
 ];
+
