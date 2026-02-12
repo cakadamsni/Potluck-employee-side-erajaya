@@ -101,7 +101,7 @@ const QueueDetailView: React.FC<QueueDetailViewProps> = ({ onNavigate, onQueueSu
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-slate-100 bg-slate-50/30">
                         {[
-                            { label: 'Tanggal Event', value: event.period, icon: 'calendar_month', color: 'text-primary' },
+                            { label: 'Tanggal Booking', value: event.period, icon: 'calendar_month', color: 'text-primary' },
                             { label: 'Pengambilan Barang', value: event.pickupPeriod, icon: 'local_shipping', color: 'text-blue-600' },
                             { label: 'Lokasi', value: event.location, icon: 'location_on', color: 'text-amber-500' },
                             { label: 'Total Kuota', value: `${event.quota} Orang`, icon: 'group', color: 'text-primary' },

@@ -21,6 +21,11 @@ const HistoryView: React.FC<HistoryViewProps> = ({ onNavigate, onLogout, onQueue
     };
 
     const filteredHistory = MOCK_HISTORY.filter(h => {
+        // Exclude Queue events with "Gagal Antrian" status
+        if (h.eventType === 'Queue' && h.status === 'Gagal Antrian') {
+            return false;
+        }
+
         const statusMatch = filter === 'Semua' || h.status === filter;
         const typeMatch = typeFilter === 'Semua' || h.eventType === typeFilter;
         return statusMatch && typeMatch;

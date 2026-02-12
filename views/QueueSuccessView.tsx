@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { MOCK_USER, MOCK_EVENTS } from '../constants';
 
 interface QueueSuccessViewProps {
@@ -9,7 +9,23 @@ interface QueueSuccessViewProps {
 }
 
 const QueueSuccessView: React.FC<QueueSuccessViewProps> = ({ onNavigate, queueNumber, timeSegment }) => {
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [isPresent, setIsPresent] = useState(false);
+
     const event = MOCK_EVENTS.find(e => e.eventType === 'Queue' && e.status === 'Aktif') || MOCK_EVENTS.find(e => e.eventType === 'Queue')!;
+
+    const handlePresentClick = () => {
+        setShowConfirmModal(true);
+    };
+
+    const handleConfirmPresent = () => {
+        setIsPresent(true);
+        setShowConfirmModal(false);
+    };
+
+    const handleCancelPresent = () => {
+        setShowConfirmModal(false);
+    };
 
     return (
         <div className="min-h-screen bg-background-light font-sans flex flex-col">
@@ -50,22 +66,30 @@ const QueueSuccessView: React.FC<QueueSuccessViewProps> = ({ onNavigate, queueNu
                         <div className="md:col-span-7 p-10 border-b md:border-b-0 md:border-r border-dashed border-slate-200 relative">
                             <div className="hidden md:block absolute -right-4 top-1/2 -translate-y-1/2 size-8 rounded-full bg-background-light border-l border-slate-200"></div>
 
-                            <div className="flex items-start gap-6">
-                                <img src={event.imageUrl} className="size-32 rounded-2xl object-cover border border-slate-100 flex-shrink-0" alt="Event" />
-                                <div className="space-y-2">
-                                    <span className="inline-block px-3 py-1 rounded-lg bg-purple-50 text-purple-600 text-[10px] font-black tracking-widest uppercase">Queue Event</span>
-                                    <h3 className="text-2xl font-black text-slate-900 leading-tight">{event.title}</h3>
-                                    <div className="space-y-1">
-                                        <p className="text-slate-500 font-bold text-sm uppercase flex items-center gap-2">
-                                            <span className="material-symbols-outlined text-base">location_on</span>
-                                            {event.location}
-                                        </p>
-                                        <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                            <span className="material-symbols-outlined text-sm">calendar_today</span>
-                                            {event.period}
+                            <div className="flex items-start justify-between gap-6 mb-4">
+                                <div className="flex items-start gap-6">
+                                    <img src={event.imageUrl} className="size-32 rounded-2xl object-cover border border-slate-100 flex-shrink-0" alt="Event" />
+                                    <div className="space-y-2">
+                                        <span className="inline-block px-3 py-1 rounded-lg bg-purple-50 text-purple-600 text-[10px] font-black tracking-widest uppercase">Queue Event</span>
+                                        <h3 className="text-2xl font-black text-slate-900 leading-tight">{event.title}</h3>
+                                        <div className="space-y-1">
+                                            <p className="text-slate-500 font-bold text-sm uppercase flex items-center gap-2">
+                                                <span className="material-symbols-outlined text-base">location_on</span>
+                                                {event.location}
+                                            </p>
+                                            <div className="flex items-center gap-2 text-xs font-bold text-slate-400 uppercase tracking-widest">
+                                                <span className="material-symbols-outlined text-sm">calendar_today</span>
+                                                {event.period}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                {isPresent && (
+                                    <span className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider flex items-center gap-1 shrink-0">
+                                        <span className="material-symbols-outlined text-[16px]">check_circle</span>
+                                        Sudah Absen
+                                    </span>
+                                )}
                             </div>
 
                             <div className="mt-8 pt-8 border-t border-slate-50">
@@ -141,24 +165,71 @@ const QueueSuccessView: React.FC<QueueSuccessViewProps> = ({ onNavigate, queueNu
                     </div>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex flex-col md:flex-row gap-4 items-center justify-center pb-12">
-                    <button
-                        onClick={() => onNavigate('history')}
-                        className="w-full md:w-auto flex items-center justify-center gap-2 px-10 py-4 rounded-xl bg-white text-slate-700 border border-slate-200 font-black text-sm uppercase tracking-widest hover:bg-slate-50 transition-all"
-                    >
-                        <span className="material-symbols-outlined text-xl">history</span>
-                        Lihat Riwayat
-                    </button>
+                {/* Bottom Actions */}
+                <div className="sticky bottom-6 z-40 bg-white/90 backdrop-blur-md border border-slate-200 p-4 rounded-3xl shadow-2xl flex flex-wrap items-center justify-between gap-4">
                     <button
                         onClick={() => onNavigate('dashboard')}
-                        className="w-full md:w-auto flex items-center justify-center gap-2 px-10 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-primary text-white shadow-xl shadow-purple-500/20 font-black text-sm uppercase tracking-widest hover:from-purple-700 hover:to-blue-700 transition-all transform hover:-translate-y-1"
+                        className="text-slate-500 hover:text-primary font-black text-[10px] uppercase tracking-widest flex items-center gap-2 px-4 transition-all"
                     >
-                        <span className="material-symbols-outlined text-xl">dashboard</span>
+                        <span className="material-symbols-outlined">arrow_back</span>
                         Kembali ke Dashboard
                     </button>
+                    <div className="flex flex-wrap gap-3">
+                        {!isPresent && (
+                            <button
+                                onClick={handlePresentClick}
+                                className="h-12 px-8 rounded-xl bg-green-600 text-white shadow-xl shadow-green-600/30 hover:bg-green-700 font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all transform hover:-translate-y-1"
+                            >
+                                <span className="material-symbols-outlined text-[20px]">how_to_reg</span>
+                                Present
+                            </button>
+                        )}
+                        <button className="h-12 px-8 rounded-xl bg-primary text-white shadow-xl shadow-primary/30 hover:bg-blue-700 font-black text-xs uppercase tracking-widest flex items-center gap-2 transition-all transform hover:-translate-y-1">
+                            <span className="material-symbols-outlined text-[20px]">download</span>
+                            Download PDF
+                        </button>
+                    </div>
                 </div>
             </main>
+
+            {/* Confirmation Modal */}
+            {showConfirmModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+                    <div className="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden animate-in fade-in zoom-in duration-200">
+                        <div className="p-6 bg-gradient-to-r from-purple-600 to-primary text-white">
+                            <div className="flex items-center gap-3">
+                                <span className="material-symbols-outlined text-4xl">info</span>
+                                <h3 className="text-xl font-black uppercase tracking-tight">Konfirmasi Kehadiran</h3>
+                            </div>
+                        </div>
+                        <div className="p-8">
+                            <p className="text-slate-700 font-medium text-base leading-relaxed mb-6">
+                                Dengan menekan tombol "Ya", Anda akan <span className="font-black text-slate-900">terdeteksi sudah absen</span> dan sistem akan mencatat kehadiran Anda untuk pengambilan barang pada segment waktu ini.
+                            </p>
+                            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6">
+                                <p className="text-xs text-amber-800 font-bold flex items-start gap-2">
+                                    <span className="material-symbols-outlined text-[16px] mt-0.5">warning</span>
+                                    <span>Pastikan Anda berada di lokasi pengambilan sebelum melakukan absensi.</span>
+                                </p>
+                            </div>
+                            <div className="flex gap-3">
+                                <button
+                                    onClick={handleCancelPresent}
+                                    className="flex-1 h-12 rounded-xl border-2 border-slate-200 text-slate-700 hover:bg-slate-50 font-black text-sm uppercase tracking-widest transition-all"
+                                >
+                                    Tidak
+                                </button>
+                                <button
+                                    onClick={handleConfirmPresent}
+                                    className="flex-1 h-12 rounded-xl bg-green-600 text-white hover:bg-green-700 font-black text-sm uppercase tracking-widest shadow-lg shadow-green-600/30 transition-all transform hover:-translate-y-0.5"
+                                >
+                                    Ya, Absen Sekarang
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
